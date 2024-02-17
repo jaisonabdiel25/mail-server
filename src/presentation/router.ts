@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { MailRoutes } from './mail/router';
+import { AuthRoutes } from './auth/router';
 
 
 export class AppRouter {
@@ -8,6 +9,7 @@ export class AppRouter {
         const router = Router();
 
         router.use('/api/mail', MailRoutes.routes);
+        router.use('/api/auth', AuthRoutes.routes);
         return router;
     }
 }
