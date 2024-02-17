@@ -20,10 +20,12 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@prisma/client": "^5.9.1",
     "dotenv": "^16.4.4",
     "env-var": "^7.4.1",
     "express": "^4.18.2",
     "nodemailer": "^6.9.9",
+    "prisma": "^5.9.1",
     "zod": "^3.22.4"
   }
 }
