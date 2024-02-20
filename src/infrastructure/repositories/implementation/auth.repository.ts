@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 import { prisma } from "../../../client";
 import { CustomError } from "../../../config/errors";
 import { IAuthRepository } from "../interface/auth.interface"
@@ -18,9 +18,9 @@ export class AuthRepository implements IAuthRepository {
         }
     }
 
-    async createUser(user: RegisterUserDto): Promise<User> {
+    async createUser(user: RegisterUserDto, role: Role): Promise<User> {
         try {
-            return await prisma.user.create({ data: user })
+            return await prisma.user.create({ data: { ...user, roles: { create: { roleId: role.id } } } })
         } catch (error) {
             if (error instanceof CustomError) throw error;
             throw CustomError.internal();
