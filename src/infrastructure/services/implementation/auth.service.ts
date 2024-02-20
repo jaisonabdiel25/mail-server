@@ -1,4 +1,3 @@
-import { BcryptAdapter } from "../../../config/bcrypt";
 import { CustomError } from "../../../config/errors";
 import { RegisterUserDto } from "../../../domain/dtos/registerUser.dto";
 import { UserEntity } from "../../../domain/entity/user.entity";
@@ -25,8 +24,6 @@ export class AuthService implements IAuthService {
             if (!role) {
                 throw CustomError.internal('El rol MODERATOR no existe');
             }
-
-            user.password = BcryptAdapter.hash(user.password);
 
             //Create User
             const newUser = await this._authRepository.createUser(user, role);
