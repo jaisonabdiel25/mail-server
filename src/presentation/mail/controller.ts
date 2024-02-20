@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { IMailService } from "../../infrastructure/mail/interface/mail.implementacion";
+import { IMailService } from "../../infrastructure/services/interface/mail.interface";
 import { CustomError } from "../../config/errors";
 import { SendMailDto } from "../../domain/dtos/sendMail.dto";
 

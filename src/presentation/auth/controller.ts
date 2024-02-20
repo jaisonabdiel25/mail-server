@@ -1,15 +1,20 @@
 import { Request, Response } from "express";
+import { IAuthService } from "../../infrastructure/services/interface/auth.interface";
+import { RegisterUserDto } from "../../domain/dtos/registerUser.dto";
 
-export class AuthController{
+export class AuthController {
 
-    constructor(){    
+    constructor(
+        private readonly _authService: IAuthService
+    ) {
     }
 
-    async login(req: Request, res: Response){
-        res.send('login')
+    register = async (req: Request<unknown, unknown, RegisterUserDto>, res: Response) => {
+        const user = await this._authService.registerUser(req.body);
+        res.send(user)
     }
 
-    async register(req: Request, res: Response){
+    login = async (req: Request, res: Response) => {
         res.send('register')
     }
 }

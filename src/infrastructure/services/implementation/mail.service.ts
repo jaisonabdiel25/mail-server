@@ -1,5 +1,5 @@
 import { SentMessageInfo } from "nodemailer";
-import { IMailService } from "../interface/mail.implementacion";
+import { IMailService } from "../interface/mail.interface";
 import { SendMailDto } from "../../../domain/dtos/sendMail.dto";
 import { MailConfigService } from "../../../config/mail";
 

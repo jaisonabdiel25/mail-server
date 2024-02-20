@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { MailController } from "./controller";
-import { MailService } from "../../infrastructure/mail/implementation/mail.service";
+import { MailService } from "../../infrastructure/services/implementation/mail.service";
 
 export class MailRoutes {
 
