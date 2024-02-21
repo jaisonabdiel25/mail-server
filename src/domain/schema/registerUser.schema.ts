@@ -6,5 +6,4 @@ export const registerUserSchema = z.object({
   email: z.string().email({ message: 'El correo electrónico no es válido' }),
   password: z.string().min(5, { message: 'La constraseña debe tenner minimo 5 caracteres' }),
   phone: z.string().min(8, { message: 'El telefono debe tener al menos 8' }).optional(),
-  confirmPassword: z.string().min(5, { message: 'La constraseña debe tenner minimo 5 caracteres' }),
-}).refine(data => data.password === data.confirmPassword, {  message: 'Las contraseñas no coinciden', path: ['confirmPassword']})
+});
