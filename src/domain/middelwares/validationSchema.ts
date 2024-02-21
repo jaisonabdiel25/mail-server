@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { AnyZodObject, ZodError } from "zod";
+import { AnyZodObject, ZodError, ZodTypeAny } from "zod";
 import { CustomError } from "../../config/errors";
 
 export const schemaValidations =
-    (schema: AnyZodObject) => (req: Request, res: Response, next: NextFunction) => {
+    (schema: AnyZodObject | ZodTypeAny) => (req: Request, res: Response, next: NextFunction) => {
         try {
             schema.parse(req.body);
             next();
