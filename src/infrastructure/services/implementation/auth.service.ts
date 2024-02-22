@@ -1,5 +1,6 @@
 import { BcryptAdapter } from "../../../config/bcrypt";
 import { CustomError } from "../../../config/errors";
+import { LoginUserDto } from "../../../domain/dtos/loginUser.dto";
 import { RegisterUserDto } from "../../../domain/dtos/registerUser.dto";
 import { UserEntity } from "../../../domain/entity/user.entity";
 import { UserMapper } from "../../../domain/mapper/user.mapper";
@@ -26,13 +27,29 @@ export class AuthService implements IAuthService {
                 throw CustomError.internal('El rol MODERATOR no existe');
             }
 
-            user.password = BcryptAdapter.hash(user.password);
+            const [, registerUserDto] = await RegisterUserDto.RegisterUser(user)
 
             //Create User
-            const newUser = await this._authRepository.createUser(user, role);
-
+            const newUser = await this._authRepository.createUser(registerUserDto!, role);
             return UserMapper.userEntityFromObject(newUser);
 
+        } catch (error) {
+            if (error instanceof CustomError) throw error;
+            throw CustomError.internal();
+        }
+    }
+
+    async login(credential: LoginUserDto): Promise<UserEntity> {
+        try {
+            const { email, password } = credential;
+
+            //Validate Email
+            const user = await this._authRepository.getUserByEmail(email);
+            if (!user) throw CustomError.prevalidation('email or password incorrect');
+
+            if (!BcryptAdapter.compare(password, user.password)) throw CustomError.prevalidation('email or password incorrect');
+
+            return UserMapper.userEntityFromObject(user);
         } catch (error) {
             if (error instanceof CustomError) throw error;
             throw CustomError.internal();

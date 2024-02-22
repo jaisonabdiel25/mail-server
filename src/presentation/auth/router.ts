@@ -5,6 +5,7 @@ import { AuthService } from "../../infrastructure/services/implementation/auth.s
 import { schemaValidations } from "../../domain/middelwares/validationSchema";
 import { registerUserSchema } from "../../domain/schema/registerUser.schema";
 import { RoleRepository } from "../../infrastructure/repositories/implementation/role.repository";
+import { loginSchema } from "../../domain/schema/loginSchema";
 
 export class AuthRoutes {
 
@@ -18,7 +19,7 @@ export class AuthRoutes {
 
         // definir las rutas
         router.post('/register', schemaValidations(registerUserSchema), controller.register);
-        router.post('/login', controller.login);
+        router.post('/login', schemaValidations(loginSchema), controller.login);
 
         return router;
     }
